@@ -2,6 +2,7 @@ package com.example.PokemonAPI.Controller;
 
 import com.example.PokemonAPI.Model.Pokemon;
 import com.example.PokemonAPI.Service.PokemonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,13 @@ public class PokemonController {
         return pokemonService.obtenerTodos();
     }
     @PostMapping
-    public Pokemon crear(@RequestBody Pokemon pokemon){
+    public Pokemon crear(
+            @Valid @RequestBody Pokemon pokemon){
         return pokemonService.crear(pokemon);
     }
     @GetMapping("/{id}")
-    public Pokemon listarPorId(@PathVariable Long id){
+    public Pokemon listarPorId(
+            @PathVariable Long id){
         return pokemonService.obtenerPorId(id);
     }
 
