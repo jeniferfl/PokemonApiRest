@@ -18,7 +18,7 @@ public class PokemonService {
         return this.pokemonRepository.findAll();
     }
     public Pokemon obtenerPorId(Long id){
-        return pokemonRepository.findById(id).orElse(null);
+        return pokemonRepository.findById(id).orElseThrow(null);
     }
     @PutMapping("/{id}")
     public Pokemon actualizarCompleto(@PathVariable Long id, @RequestBody Pokemon pokemon) {

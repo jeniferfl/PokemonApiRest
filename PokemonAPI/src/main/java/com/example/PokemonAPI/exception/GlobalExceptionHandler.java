@@ -27,4 +27,34 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(BusinessRuleException.class)
+    public ResponseEntity<ErrorDTO> manejarErrorDeNegocio(BusinessRuleException ex) {
+        List<String> detalles = new ArrayList<>();
+
+        ErrorDTO errorDTO = new ErrorDTO("Error en la validacion de datos enviados",
+                detalles,
+                LocalDateTime.now());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorDTO> manejarErrorDeNegocio(ResourceNotFoundException ex) {
+        List<String> detalles = new ArrayList<>();
+        ErrorDTO errorDTO = new ErrorDTO("Error en la validacion de datos enviados",
+                detalles,
+                LocalDateTime.now());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDTO> manejarErrorDeServidor(Exception ex) {
+        List<String> detalles = new ArrayList<>();
+
+        ErrorDTO errorDTO = new ErrorDTO("Error en la validacion de datos enviados",
+                detalles,
+                LocalDateTime.now());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
 }
