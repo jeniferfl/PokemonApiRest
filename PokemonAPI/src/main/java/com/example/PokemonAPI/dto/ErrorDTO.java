@@ -13,4 +13,5 @@ public class ErrorDTO {
         private String mensaje;
         private List<String> detalles;
         private LocalDateTime fecha;
+
 }

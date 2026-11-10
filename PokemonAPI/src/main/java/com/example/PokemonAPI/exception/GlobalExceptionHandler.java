@@ -19,9 +19,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTO> manejarErrorDeValidacion(MethodArgumentNotValidException ex) {
         List<String> detalles = new ArrayList<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            detalles.add(error.getDefaultMessage());
+            detalles.add(
+                    error.getField() + ": " + error.getDefaultMessage()
+            );
         }
-
         ErrorDTO errorDTO = new ErrorDTO("Error en la validacion de datos enviados",
                 detalles,
                 LocalDateTime.now());
@@ -49,12 +50,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> manejarErrorDeServidor(Exception ex) {
+        ex.printStackTrace();
         List<String> detalles = new ArrayList<>();
-
-        ErrorDTO errorDTO = new ErrorDTO("Error en la validacion de datos enviados",
+        detalles.add(ex.getClass().getSimpleName());
+        ErrorDTO errorDTO = new ErrorDTO(
+                "Error interno del servidor",
                 detalles,
-                LocalDateTime.now());
-        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(
+                errorDTO,
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
-
 }
